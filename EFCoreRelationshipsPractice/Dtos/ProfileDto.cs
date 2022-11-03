@@ -9,7 +9,7 @@ namespace EFCoreRelationshipsPractice.Dtos
         {
         }
 
-        public ProfileDto(ProfileEntity? profile)
+        public ProfileDto(ProfileEntity profile)
         {
             RegisteredCapital = profile.RegisteredCapital;
             CertId = profile.CertId;

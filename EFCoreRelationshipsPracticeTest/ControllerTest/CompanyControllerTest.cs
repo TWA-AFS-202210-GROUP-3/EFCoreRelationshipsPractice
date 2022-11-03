@@ -67,7 +67,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(companyDto.ProfileDto.RegisteredCapital, returnCompanies[0].ProfileDto.RegisteredCapital);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_create_company_with_profile_and_employees_success()
         {
             // given
@@ -81,6 +81,11 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
                     {
                         Name = "Tom",
                         Age = 19,
+                    },
+                    new EmployeeDto()
+                    {
+                        Name = "Jerry",
+                        Age = 18,
                     },
                 },
                 ProfileDto = new ProfileDto()
@@ -144,7 +149,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Empty(returnCompanies);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_create_many_companies_success()
         {
             var client = GetClient();
