@@ -57,6 +57,20 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal("IBM", selectedCompanyDto.Name);
         }
 
+        [Fact]
+        public async Task Should_delete_company_by_id_via_company_service()
+        {
+            //given
+            var context = getCompanyDbContext();
+            var companyDto = PrepareCompanyDto();
+            CompanyService companyService = new CompanyService(context);
+            //when
+            var companyId = await companyService.AddCompany(companyDto);
+            await companyService.DeleteCompany(companyId);
+            //then
+            Assert.Empty(context.Companies);
+        }
+
         private CompanyDto PrepareCompanyDto()
         {
             CompanyDto companyDto = new CompanyDto()
