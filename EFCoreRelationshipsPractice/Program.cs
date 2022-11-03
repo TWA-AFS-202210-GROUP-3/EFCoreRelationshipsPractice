@@ -20,13 +20,17 @@ builder.Services.AddDbContext<CompanyDbContext>(options =>
 
 var app = builder.Build();
 
-using(var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<CompanyDbContext>();
     using (var context = scope.ServiceProvider.GetService<CompanyDbContext>())
     {
-        context.Database.EnsureDeleted(); // delete database
-        context.Database.EnsureCreated();
+        //context.Database.EnsureDeleted(); // delete database
+        //context.Database.EnsureCreated();
+        if (context.Database.IsRelational())
+        {
+            context.Database.Migrate();
+        }
     }
 }
 
