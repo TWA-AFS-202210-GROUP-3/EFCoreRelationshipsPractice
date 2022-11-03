@@ -7,6 +7,7 @@
         }
 
         public int RegisteredCapital { get; set; }
+
         public string CertId { get; set; }
     }
 }

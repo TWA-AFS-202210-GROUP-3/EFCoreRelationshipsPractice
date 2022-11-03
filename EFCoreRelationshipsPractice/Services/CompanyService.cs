@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFCoreRelationshipsPractice.Dtos;
+using EFCoreRelationshipsPractice.Model;
 using EFCoreRelationshipsPractice.Repository;
 
 namespace EFCoreRelationshipsPractice.Services
@@ -18,6 +19,12 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<List<CompanyDto>> GetAll()
         {
+            // get company from db
+            var companies = companyDbContext.Companies.ToList();
+
+            // convert entity to dto(select类似于map)
+            companies.Select(companyEntity => new CompanyDto(companyEntity)).ToList();
+
             throw new NotImplementedException();
         }
 
