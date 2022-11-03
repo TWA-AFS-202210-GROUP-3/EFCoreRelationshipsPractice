@@ -43,6 +43,20 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(1, context.Companies.Count());
         }
 
+        [Fact]
+        public async Task Should_get_company_by_id_via_company_service()
+        {
+            //given
+            var context = getCompanyDbContext();
+            var companyDto = PrepareCompanyDto();
+            CompanyService companyService = new CompanyService(context);
+            //when
+            var companyId = await companyService.AddCompany(companyDto);
+            var selectedCompanyDto = await companyService.GetById(companyId);
+            //then
+            Assert.Equal("IBM", selectedCompanyDto.Name);
+        }
+
         private CompanyDto PrepareCompanyDto()
         {
             CompanyDto companyDto = new CompanyDto()
