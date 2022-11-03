@@ -5,18 +5,19 @@ namespace EFCoreRelationshipsPractice.Dtos
 {
     public class CompanyDto
     {
-        public CompanyDto()
+        public CompanyDto() //空构造函数
         {
         }
 
         public CompanyDto(CompanyEntity companyEntity)
         {
             Name = companyEntity.Name;
+            ProfileDto = companyEntity.Profile != null ? new ProfileDto(companyEntity.Profile) : null;
         }
 
         public string Name { get; set; }
 
-        public ProfileDto? Profile { get; set; }
+        public ProfileDto? ProfileDto { get; set; }
 
         public List<EmployeeDto>? Employees { get; set; }
 
@@ -28,6 +29,7 @@ namespace EFCoreRelationshipsPractice.Dtos
             return new CompanyEntity()
             {
                 Name = this.Name,
+                Profile = this.ProfileDto?.ToEntity(),
             };
         }
 
