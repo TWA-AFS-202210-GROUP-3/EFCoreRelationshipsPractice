@@ -62,7 +62,9 @@ namespace EFCoreRelationshipsPractice.Services
                 .Include(entity => entity.Employees)
                 .ToList()
                 .Find(item => item.Id == id);
-            //2. convert data to company Dto
+            //2. delete entity from db
+            companyDbContext.Companies.RemoveRange(selectedCompany);
+            await companyDbContext.SaveChangesAsync();
         }
     }
 }
