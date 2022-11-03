@@ -81,12 +81,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
                     {
                         Name = "Tom",
                         Age = 19,
-                    },
-                    new EmployeeDto()
-                    {
-                        Name = "Jerry",
-                        Age = 18,
-                    },
+                    }
                 },
                 ProfileDto = new ProfileDto()
                 {
