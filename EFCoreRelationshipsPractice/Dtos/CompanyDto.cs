@@ -22,5 +22,12 @@ namespace EFCoreRelationshipsPractice.Dtos
 
         public List<EmployeeDto>? Employees { get; set; }
 
+        public CompanyEntiy ToEntity()
+        {
+            return new CompanyEntiy()
+            {
+                Name = this.Name
+            };
+        }
     }
 }

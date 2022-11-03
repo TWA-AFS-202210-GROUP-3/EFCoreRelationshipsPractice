@@ -21,6 +21,7 @@ namespace EFCoreRelationshipsPractice.Services
         {
             //get company from db
             var companis = companyDbContext.Companies.ToList();
+
             //convert entity to dto
             return  companis.Select(CompanyEntiy => new CompanyDto(CompanyEntiy)).ToList();
         }
@@ -32,7 +33,14 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<int> AddCompany(CompanyDto companyDto)
         {
-            throw new NotImplementedException();
+            //1. convert dto to entity
+            CompanyEntiy companyEntiy = companyDto.ToEntity();
+
+            // save entity to db
+           await companyDbContext.Companies.AddAsync(companyEntiy);
+           await companyDbContext.SaveChangesAsync();
+
+           return companyEntiy.Id;
         }
 
         public async Task DeleteCompany(int id)
