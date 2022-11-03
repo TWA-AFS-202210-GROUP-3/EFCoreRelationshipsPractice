@@ -5,6 +5,7 @@ namespace EFCoreRelationshipsPractice.Dtos
     public class EmployeeDto
     {
         public EmployeeDto() {}
+
         public EmployeeDto(EmployeeEntity employeeEntity)
         {
             this.Name = employeeEntity.Name;
