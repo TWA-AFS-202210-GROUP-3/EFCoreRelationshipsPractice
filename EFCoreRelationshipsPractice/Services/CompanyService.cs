@@ -23,6 +23,7 @@ namespace EFCoreRelationshipsPractice.Services
             //1. get companies from db
             var companies = companyDbContext.Companies
                 .Include(entity => entity.Profile)
+                .Include(entity => entity.Employees)
                 .ToList();
             //2. convert data to company Dto
             return companies.Select(companyEntity => new CompanyDto(companyEntity)).ToList();
