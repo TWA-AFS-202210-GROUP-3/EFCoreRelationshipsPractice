@@ -109,7 +109,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(companyDto.Employees[0].Name, returnCompanies[0].Employees[0].Name);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_delete_company_and_related_employee_and_profile_success()
         {
             var client = GetClient();
@@ -127,7 +127,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
                 ProfileDtos = new ProfileDto()
                 {
                     RegisteredCapital = 100010,
-                    CertId = "100"
+                    CertId = "100",
                 },
             };
 
@@ -144,7 +144,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Empty(returnCompanies);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_create_many_companies_success()
         {
             var client = GetClient();
@@ -199,7 +199,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(2, returnCompanies.Count);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_get_company_by_id_success()
         {
             var client = GetClient();

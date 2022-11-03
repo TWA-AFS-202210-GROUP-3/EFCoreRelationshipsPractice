@@ -34,7 +34,9 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<CompanyDto> GetById(long id)
         {
-            throw new NotImplementedException();
+            var company = this.companyDbContext.Companies.FirstOrDefault(_ => _.Id == id);
+            return new CompanyDto(company);
+            //throw new NotImplementedException();
         }
 
         public async Task<int> AddCompany(CompanyDto companyDto)
@@ -50,7 +52,14 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task DeleteCompany(int id)
         {
-            throw new NotImplementedException();
+            var company = this.companyDbContext.Companies
+                .Include(company => company.Profile)
+                .Include(company => company.Employees)
+                .FirstOrDefault(_ => _.Id == id);
+
+            this.companyDbContext.Companies.Remove(company);
+            await this.companyDbContext.SaveChangesAsync();
+            //throw new NotImplementedException();
         }
     }
 }
