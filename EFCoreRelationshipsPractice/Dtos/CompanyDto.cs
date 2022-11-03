@@ -14,11 +14,15 @@ namespace EFCoreRelationshipsPractice.Dtos
         public CompanyDto(CompanyEntiy companyEntiy)
         {
             Name = companyEntiy.Name;
+            // ProfileDto.RegisteredCapital = companyEntiy.Profile.RegisteredCapital;
+            //profiledto.certid = companyEntiy.profile.cerid;
+            ProfileDto = companyEntiy.Profile !=null? new ProfileDto(companyEntiy.Profile): null;
+
         }
 
         public string Name { get; set; }
 
-        public ProfileDto? Profile { get; set; }
+        public ProfileDto? ProfileDto { get; set; }
 
         public List<EmployeeDto>? Employees { get; set; }
 
@@ -26,7 +30,8 @@ namespace EFCoreRelationshipsPractice.Dtos
         {
             return new CompanyEntiy()
             {
-                Name = this.Name
+                Name = this.Name,
+                Profile = this.ProfileDto?.ToEntity(),
             };
         }
     }
