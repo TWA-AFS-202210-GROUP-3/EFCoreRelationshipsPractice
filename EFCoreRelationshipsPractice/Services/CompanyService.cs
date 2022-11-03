@@ -21,15 +21,22 @@ namespace EFCoreRelationshipsPractice.Services
         public async Task<List<CompanyDto>> GetAll()
         {
             //get company from db
-            var companis = companyDbContext.Companies.Include( company => company.Profile)
+            var companis = companyDbContext.Companies.Include(company => company.Profile)
                 .Include(company => company.Employees).ToList();
             //convert entity to dto
-            return  companis.Select(CompanyEntiy => new CompanyDto(CompanyEntiy)).ToList();
+            return companis.Select(CompanyEntiy => new CompanyDto(CompanyEntiy)).ToList();
         }
 
         public async Task<CompanyDto> GetById(long id)
         {
-            throw new NotImplementedException();
+
+           CompanyEntiy foundCompany = await this.companyDbContext.Companies
+               .Include(company => company.Employees)
+               .Include(company => company.Profile)
+               .FirstOrDefaultAsync(company => company.Id.Equals(id));
+
+           return new CompanyDto(foundCompany);
+
         }
 
         public async Task<int> AddCompany(CompanyDto companyDto)
@@ -38,15 +45,20 @@ namespace EFCoreRelationshipsPractice.Services
             CompanyEntiy companyEntiy = companyDto.ToEntity();
 
             // save entity to db
-           await companyDbContext.Companies.AddAsync(companyEntiy);
-           await companyDbContext.SaveChangesAsync();
+            await companyDbContext.Companies.AddAsync(companyEntiy);
+            await companyDbContext.SaveChangesAsync();
 
-           return companyEntiy.Id;
+            return companyEntiy.Id;
         }
 
         public async Task DeleteCompany(int id)
         {
-            throw new NotImplementedException();
+            var foundCompany = await this.companyDbContext.Companies.Include(company => company.Employees)
+                .Include(company => company.Profile).FirstOrDefaultAsync(company => company.Id.Equals(id));
+            companyDbContext.Companies.Remove(foundCompany);
+            await companyDbContext.SaveChangesAsync();
         }
     }
 }
+
+

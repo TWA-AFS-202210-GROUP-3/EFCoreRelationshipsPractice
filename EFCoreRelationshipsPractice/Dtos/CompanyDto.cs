@@ -6,6 +6,7 @@ namespace EFCoreRelationshipsPractice.Dtos
     public class CompanyDto
     {
         private CompanyEntiy companyEntiy;
+        private Task<CompanyEntiy?> foundCompany;
 
         public CompanyDto()
         {
@@ -14,11 +15,14 @@ namespace EFCoreRelationshipsPractice.Dtos
         public CompanyDto(CompanyEntiy companyEntiy)
         {
             Name = companyEntiy.Name;
-            // ProfileDto.RegisteredCapital = companyEntiy.Profile.RegisteredCapital;
-            //profiledto.certid = companyEntiy.profile.cerid;
             ProfileDto = companyEntiy.Profile != null ? new ProfileDto(companyEntiy.Profile) : null;
             EmployeesDto = companyEntiy.Employees?.Select(employeeEntity => new EmployeeDto(employeeEntity)).ToList();
         }
+
+        //public CompanyDto(Task<CompanyEntiy?> foundCompany)
+        //{
+        //    this.foundCompany = foundCompany;
+        //}
 
         public string Name { get; set; }
 
