@@ -67,7 +67,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(companyDto.ProfileDtos.RegisteredCapital, returnCompanies[0].ProfileDtos.RegisteredCapital);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_create_company_with_profile_and_employees_success()
         {
             // given

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using EFCoreRelationshipsPractice.Model;
 
 namespace EFCoreRelationshipsPractice.Dtos
@@ -13,6 +14,7 @@ namespace EFCoreRelationshipsPractice.Dtos
         {
             Name = companyEntity.Name;
             ProfileDtos = companyEntity.Profile != null ? new ProfileDto(companyEntity.Profile) : null;
+            Employees = companyEntity.Employees?.Select(_ => new EmployeeDto(_)).ToList();
         }
 
         public string Name { get; set; }
@@ -27,6 +29,7 @@ namespace EFCoreRelationshipsPractice.Dtos
             {
                 Name = this.Name,
                 Profile = ProfileDtos?.ToEntity(),
+                Employees = Employees?.Select(_ => _.ToEntity()).ToList(),
             };
         }
     }

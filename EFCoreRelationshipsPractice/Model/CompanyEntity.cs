@@ -8,6 +8,8 @@
 
         public ProfileEntity? Profile { get; set; }
 
+        public List<EmployeesEntity>? Employees { get; set; }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
