@@ -21,7 +21,7 @@ namespace EFCoreRelationshipsPractice.Services
             //1. get companies from db
             var companies = companyDbContext.Companies.ToList();
             //2. transfer data to company Dto
-            throw new NotImplementedException();
+            return companies.Select(companyEntity => new CompanyDto(companyEntity)).ToList();
         }
 
         public async Task<CompanyDto> GetById(long id)
