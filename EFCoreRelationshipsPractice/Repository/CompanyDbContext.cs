@@ -21,5 +21,11 @@ namespace EFCoreRelationshipsPractice.Repository
             get;
             set;
         }
+
+        public DbSet<EmployeeEntity> Employees  // DbSet 中的 set 为名词 集合
+        {
+            get;
+            set;
+        }
     }
 }
