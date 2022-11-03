@@ -22,6 +22,7 @@
 
         protected HttpClient GetClient()
         {
+
             return Factory.CreateClient();
         }
     }

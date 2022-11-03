@@ -25,7 +25,7 @@ using(var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<CompanyDbContext>();
     using (var context = scope.ServiceProvider.GetService<CompanyDbContext>())
     {
-        context.Database.EnsureDeleted();
+        context.Database.EnsureDeleted(); // delete database
         context.Database.EnsureCreated();
     }
 }
