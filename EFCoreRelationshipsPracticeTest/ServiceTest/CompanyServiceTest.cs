@@ -18,7 +18,7 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
         }
 
         [Fact]
-        public async Task Should_create_company_success_via_company_service()
+        public async Task Should_create_company_with_employee_success_via_company_service()
         {
             var context = GetCompanyDbContext();
             CompanyDto companyDto = new CompanyDto()
@@ -32,6 +32,27 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
                         Age = 19,
                     },
                 },
+                ProfileDtos = new ProfileDto()
+                {
+                    RegisteredCapital = 100010,
+                    CertId = "100",
+                },
+            };
+
+            CompanyService companyService = new CompanyService(context);
+
+            await companyService.AddCompany(companyDto);
+
+            Assert.Equal(1, context.Companies.Count());
+        }
+
+        [Fact]
+        public async Task Should_create_company_with_profile_success()
+        {
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto = new CompanyDto()
+            {
+                Name = "IBM",
                 ProfileDtos = new ProfileDto()
                 {
                     RegisteredCapital = 100010,
