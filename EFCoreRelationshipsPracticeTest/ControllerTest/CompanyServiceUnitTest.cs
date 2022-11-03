@@ -21,6 +21,30 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
         {
             //given
             var context = getCompanyDbContext();
+            var companyDto = PrepareCompanyDto();
+            CompanyService companyService = new CompanyService(context);
+            //when
+            await companyService.AddCompany(companyDto);
+            //then
+            Assert.Equal(1, context.Companies.Count());
+        }
+
+        [Fact]
+        public async Task Should_get_all_companies_success_via_company_service()
+        {
+            //given
+            var context = getCompanyDbContext();
+            var companyDto = PrepareCompanyDto();
+            CompanyService companyService = new CompanyService(context);
+            //when
+            await companyService.AddCompany(companyDto);
+            await companyService.GetAll();
+            //then
+            Assert.Equal(1, context.Companies.Count());
+        }
+
+        private CompanyDto PrepareCompanyDto()
+        {
             CompanyDto companyDto = new CompanyDto()
             {
                 Name = "IBM",
@@ -38,11 +62,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
                     CertId = "100",
                 },
             };
-            CompanyService companyService = new CompanyService(context);
-            //when
-            await companyService.AddCompany(companyDto);
-            //then
-            Assert.Equal(1, context.Companies.Count());
+            return companyDto;
         }
 
         private CompanyDbContext getCompanyDbContext()
