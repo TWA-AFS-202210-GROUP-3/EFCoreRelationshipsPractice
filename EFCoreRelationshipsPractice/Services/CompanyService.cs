@@ -23,9 +23,9 @@ namespace EFCoreRelationshipsPractice.Services
             var companies = companyDbContext.Companies.ToList();
 
             // convert entity to dto(select类似于map)
-            companies.Select(companyEntity => new CompanyDto(companyEntity)).ToList();
+            return companies.Select(companyEntity => new CompanyDto(companyEntity)).ToList();
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public async Task<CompanyDto> GetById(long id)
@@ -35,7 +35,13 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<int> AddCompany(CompanyDto companyDto)
         {
-            throw new NotImplementedException();
+            CompanyEntity companyEntity = companyDto.ToEntity();
+
+            await companyDbContext.Companies.AddAsync(companyEntity);
+            await companyDbContext.SaveChangesAsync();
+
+            return companyEntity.Id;
+            //throw new NotImplementedException();
         }
 
         public async Task DeleteCompany(int id)
