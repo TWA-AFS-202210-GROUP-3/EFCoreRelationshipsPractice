@@ -12,5 +12,7 @@
         public string Name { get; set; }
 
         public ProfileEntity? Profile { get; set; }
+
+        public List<EmployeeEntity>? Employees { get; set; }
     }
 }
