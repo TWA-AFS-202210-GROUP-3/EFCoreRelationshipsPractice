@@ -124,6 +124,55 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
         [Fact]
         public async Task Should_get_company_information_through_service()
         {
+            //given
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto1 = new CompanyDto
+            {
+                Name = "IBM",
+                EmployeesDto = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Tom",
+                        Age = 19,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100010,
+                    CertId = "100",
+                },
+            };
+
+            CompanyDto companyDto2 = new CompanyDto
+            {
+                Name = "MS",
+                EmployeesDto = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Jerry",
+                        Age = 18,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100020,
+                    CertId = "101",
+                },
+            };
+
+            CompanyService companyService = new CompanyService(context);
+            await companyService.AddCompany(companyDto1);
+            await companyService.AddCompany(companyDto2);
+
+            //when
+            var companies = await companyService.GetAll();
+           
+
+
+            //then
+            Assert.Equal(2, companies.Count());
         }
 
     }
