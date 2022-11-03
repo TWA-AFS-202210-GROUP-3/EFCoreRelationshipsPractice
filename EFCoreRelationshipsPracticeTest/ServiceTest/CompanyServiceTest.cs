@@ -74,34 +74,58 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
         {
             //given
             var context = GetCompanyDbContext();
-            var companyDto1 = CompanyDto();
-            CompanyDto companyDto2 = new CompanyDto();
-            companyDto2.Name = "SLB";
-            companyDto2.Employees = new List<EmployeeDto>()
+            List<CompanyDto> companyDtos = new List<CompanyDto>()
             {
-                new EmployeeDto()
+                new CompanyDto()
                 {
-                    Name = "Tom",
-                    Age = 19,
+                    Name = "SLB",
+                    Employees = new List<EmployeeDto>()
+                    {
+                        new EmployeeDto()
+                        {
+                            Name = "Tom",
+                            Age = 19,
+                        },
+                    },
+                    ProfileDto = new ProfileDto()
+                    {
+                        RegisteredCapital = 100010,
+                        CertId = "100",
+                    },
                 },
-            };
-            companyDto2.ProfileDto = new ProfileDto()
-            {
-                RegisteredCapital = 100010,
-                CertId = "100",
+                new CompanyDto()
+                {
+                    Name = "IBM",
+                    Employees = new List<EmployeeDto>()
+                    {
+                        new EmployeeDto()
+                        {
+                            Name = "Tom",
+                            Age = 19,
+                        },
+                    },
+                    ProfileDto = new ProfileDto()
+                    {
+                        RegisteredCapital = 100010,
+                        CertId = "100",
+                    },
+                },
             };
 
             CompanyService companyService = new CompanyService(context);
-            await companyService.AddCompany(companyDto1);
-            await companyService.AddCompany(companyDto2);
 
+            foreach (var companyDto in companyDtos)
+            {
+                await companyService.AddCompany(companyDto);
+            }
+            
             //when
             var companyObtained = await companyService.GetAll();
 
             //then
             Assert.Equal(2, companyObtained.Count);
-            Assert.Equal("BGC", companyObtained[0].Name);
-            Assert.Equal("SLB", companyObtained[1].Name);
+            Assert.Equal("SLB", companyObtained[0].Name);
+            Assert.Equal("IBM", companyObtained[1].Name);
         }
 
         [Fact]
@@ -118,7 +142,7 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             var companyObtained = await companyService.GetById(companyId);
 
             //then
-            Assert.Equal("abc", companyObtained.Name);
+            Assert.Equal("IBM", companyObtained.Name);
         }
 
         private static CompanyDto CompanyDto()
