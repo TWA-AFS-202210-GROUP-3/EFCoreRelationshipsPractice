@@ -5,3 +5,5 @@ riderModule.iml
 /_ReSharper.Caches/
 .idea/
 EFCoreRelationshipsPractice.sln.DotSettings.user
+*.v2
+/.vs/EFCoreRelationshipsPractice/v17/TestStore/0/001.testlog
